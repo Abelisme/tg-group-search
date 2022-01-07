@@ -7,8 +7,8 @@ app = Flask(__name__, template_folder = 'templates')
 
 # These example values won't work. You must get your own api_id and
 # api_hash from https://my.telegram.org, under API Development.
-api_id = 4190078
-api_hash = '1b8b4ebef76ebd1a2f469884694d2940'
+api_id = 0
+api_hash = ''
 client = TelegramClient('session_name', api_id, api_hash)
 client.start()
 #create a listener
