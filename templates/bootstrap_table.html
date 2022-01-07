@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block content %}
+<table id="data" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Address</th>
+      <th>Phone Number</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for msg in messages %}
+    <tr>
+      <td>{{ msg.message_text }}</td>
+      <td>{{ msg.date }}</td>
+      <td>{{ msg.reply_url }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

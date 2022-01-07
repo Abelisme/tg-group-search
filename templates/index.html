@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- jquery -->
+    <script src="{{ url_for('static', filename='jquery-3.6.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <!-- function start -->
+    <script>
+        // $(document).ready(function () {
+        //   $('#data').DataTable();
+        // });
+        function doSearch() {
+            var search_word = $('input[name="search_word"]').val();
+            var group_link = $('input[name="group_link"]').val();
+            if (search_word.length > 1 || group_link.indexOf("https://t.me") > -1) {
+                var data = {
+                    search_word: search_word,
+                    target_group: group_link
+                }
+                $.ajax({
+                    method: "GET",
+                    url: "/search",
+                    data: data
+                }).then(function successCallback(response) {
+                    $("body").empty();
+                    $('body').append(response);
+                }, function errorCallback(response) {
+                });
+            }
+        }
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</head>
+
+<body>
+    <h1>telegram search keyword system</h1>
+    <p>
+        <input type=text name="group_link">group link
+        <input type=text name="search_word">search word
+        <span id=result></span>
+    </p>
+    <!-- <p><a href="#" id=search onclick="doJKOSPaySussess()">search keyword</a></p> -->
+    <p><button id=search onclick="doSearch()">search keyword</button></p>
+    {% block content %}
+    {% endblock %}
+    <table id="data" class="table">
+        <thead>
+            <tr class="table__header">
+                {% for header in headings %}
+                    <th class="table_cell"> {{ header }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+            <tr class="table__row">
+                <td style="width: 30%;">{{ msg.message_text }}</td>
+                <td style="width: 15%;">{{ msg.date }}</td>
+                <td style="width: 15%;">{{ msg.reply_url }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
