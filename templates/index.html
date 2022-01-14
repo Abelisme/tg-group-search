@@ -16,6 +16,7 @@
             var search_word = $('input[name="search_word"]').val();
             var group_link = $('input[name="group_link"]').val();
             if (search_word.length > 1 || group_link.indexOf("https://t.me") > -1) {
+                $(".loader").show();
                 var data = {
                     search_word: search_word,
                     target_group: group_link
@@ -27,31 +28,29 @@
                 }).then(function successCallback(response) {
                     $("body").empty();
                     $('body').append(response);
-                }, function errorCallback(response) {
-                });
+                    $(".loader").hide();
+                }, function errorCallback(response) {});
             }
         }
     </script>
-    {% block scripts %}
-    {% endblock %}
+    {% block scripts %} {% endblock %}
 </head>
 
 <body>
     <h1>telegram search keyword system</h1>
     <p>
-        <input type=text name="group_link">group link
-        <input type=text name="search_word">search word
+        group link: <input type=text name="group_link"> search word: <input type=text name="search_word">
         <span id=result></span>
     </p>
     <!-- <p><a href="#" id=search onclick="doJKOSPaySussess()">search keyword</a></p> -->
     <p><button id=search onclick="doSearch()">search keyword</button></p>
-    {% block content %}
-    {% endblock %}
+    {% block content %} {% endblock %}
+    <div class="loader" hidden="hidden"></div>
     <table id="data" class="table">
         <thead>
             <tr class="table__header">
                 {% for header in headings %}
-                    <th class="table_cell"> {{ header }} </th>
+                <th class="table_cell"> {{ header }} </th>
                 {% endfor %}
             </tr>
         </thead>
