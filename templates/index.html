@@ -3,14 +3,20 @@
 
 <head>
     <!-- jquery -->
-    <script src="{{ url_for('static', filename='jquery-3.6.0.js') }}"></script>
-    <script src="{{ url_for('static', filename='jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.6.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.6.0.min.js') }}"></script>
+    <!-- Bootstrap5 datatables js-->
+    <script src="{{ url_for('static', filename='DataTables-1.11.3/js/datatables.min.js') }}"></script>
     <!-- css -->
     <link rel="stylesheet" href="static/css/styles.css" />
+    <!-- Bootstrap5 datatables css-->
+    <link rel="stylesheet" type="text/css" href="static/DataTables-1.11.3/css/datatables.min.css" />
+
     <!-- function start -->
+
     <script>
-        // $(document).ready(function () {
-        //   $('#data').DataTable();
+        // $(document).ready(function() {
+        //     // $('#data').DataTable();
         // });
         function doSearch() {
             var search_word = $('input[name="search_word"]').val();
@@ -28,16 +34,16 @@
                 }).then(function successCallback(response) {
                     $("body").empty();
                     $('body').append(response);
+                    $('#data').DataTable();
                     $(".loader").hide();
                 }, function errorCallback(response) {});
             }
         }
     </script>
-    {% block scripts %} {% endblock %}
 </head>
 
 <body>
-    <h1>telegram search keyword system</h1>
+    <h1>Telegram search keyword system</h1>
     <p>
         group link: <input type=text name="group_link"> search word: <input type=text name="search_word">
         <span id=result></span>
